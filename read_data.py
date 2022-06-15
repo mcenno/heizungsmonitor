@@ -33,7 +33,9 @@ IDs = [1, 2]
 thermometers = {
                 'aussentemperatur':    '28-00000418acd6',
                 'vorlauftemperatur':   '10-0008027f54a6',
-                'ruecklauftemperatur': '10-0008027f5818'
+                'ruecklauftemperatur': '10-0008027f5818',
+                'warmwassertemperatur': '28-6757b90164ff',
+                'zirkulationsruecklauf': '28-1704b20164ff'
                 }
 
 # connect to Modbus
