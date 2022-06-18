@@ -44,6 +44,23 @@
   eine vernünftige Zahl gebaut wird. Dazu wird der `buffer-parser`-Node
   eingesetzt.
 
+* L1: 
+  * 13 - Elektroherd
+  * 16 - Trockner
+  * 19 - Spülmaschine
+  * 22 - Küche, Dachboden, Steckdosen hinter Fernseher
+* L2:
+  * 14 - Elektroherd
+  * 17 - Waschmaschine
+  * 20 - Waschküche
+  * 23 - Flur/Treppenraum unten, Theodor, Anna, Bad/Flur oben, Wohn-/Esszimmer,
+    Garderobe, Außenlampe Haustür
+* L3:
+  * 15 - Elektroherd
+  * 18 - Licht Heizungskeller
+  * 21 - Werkkeller, Bewegungsmelder Fahrradschuppen
+  * 24 - Flur zum Garten unten, Arbeitszimmer, Bad unten, Schlafzimmer,
+    Gästezimmer, Außensteckdose neben Wasserhahn, Klingel
 ## Influxdb
 
 * Einloggen: `influx -username admin -password XXXXXXXXXXXX -precision rfc3339 -database temperatures`

@@ -1,3 +1,4 @@
 .vscode/
 venv39/
 .DS_Store
+credentials.yml
