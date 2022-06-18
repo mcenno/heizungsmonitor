@@ -2,3 +2,4 @@
 venv39/
 .DS_Store
 credentials.yml
+measurements.sql.gz

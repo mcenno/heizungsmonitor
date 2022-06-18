@@ -81,21 +81,25 @@ def read_temp(w1_slave):
     temperature = float(stringvalue[2:]) / 1000
     return(temperature)
 
+# start with current time stamp
+data = [['time', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')]]
 
-# retrieve modbus data
+# add modbus data
 # product of regs and IDs is set up such that a quantity is retrieved first from
 # one meter, then from the other. Hence they a closest in time to minimize
 # fluctuations 
-data = [['time', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')]]
-data = data + [[f"{q['quantity']}_{id}", read_modbus(mbclient, id, q)] 
-         for q, id in list(product(regs, IDs))]
+try:
+  data = data + [[f"{q['quantity']}_{id}", read_modbus(mbclient, id, q)] 
+                 for q, id in list(product(regs, IDs))]
+except:
+    pass
+
 # add temperature data
 data = data + [[id, read_temp(thermometers[id])] for id in thermometers]
 
 # cobble together the SQL insert statement and execute it
 # need to distinguish between strings and floats for the values
 fields = ','.join([x[0]        for x in data])
-#values = ','.join(['%s' % x[1] for x in data])
 values = ','.join(['%f' % x[1] if isinstance(x[1], float) else '"%s"' % x[1] for x in data])
 sql = f'insert into data ({fields}) values ({values})'
 cur.execute(sql)
