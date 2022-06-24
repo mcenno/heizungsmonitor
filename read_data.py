@@ -64,7 +64,7 @@ except mariadb.Error as e:
 cur = conn.cursor()
 
 # load yml file to dictionary
-def read_cred(filename='credentials.yml'):
+def read_cred(filename='/home/pi/heizungsmonitor/credentials.yml'):
     with open(filename, "r") as stream:
         try:
             cred = yaml.safe_load(stream)
