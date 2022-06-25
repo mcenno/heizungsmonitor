@@ -38,7 +38,8 @@ thermometers = {
                 'vorlauftemperatur':   '10-0008027f54a6',
                 'ruecklauftemperatur': '10-0008027f5818',
                 'warmwassertemperatur': '28-6757b90164ff',
-                'zirkulationsruecklauf': '28-1704b20164ff'
+                'zirkulationsruecklauf': '28-1704b20164ff',
+                'heizungsraum': '28-e02db90164ff'
                 }
 
 # connect to Modbus
