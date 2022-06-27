@@ -81,7 +81,7 @@ def read_last(cred):
                       con=db_connection)
     db_connection.dispose()
     # convert from utc to local time
-    row['time'] = row['time'].dt.tz_localize('utc').dt.tz_convert('Europe/Berlin')
+    row['time'] = row['time'].dt.tz_localize('utc')
     return(row)
 
 # read data from modbus
