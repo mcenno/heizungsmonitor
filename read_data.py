@@ -1,10 +1,13 @@
 import mariadb
+import pandas as pd
 import sys
+import yaml
+import datetime
+from sqlalchemy import create_engine, true
 from itertools import product
 from struct import pack, unpack
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from time import sleep
-from datetime import datetime
 
 # registers we want to read
 # see documentation at https://b2b.orno.pl/download-resource/26064/
@@ -35,7 +38,8 @@ thermometers = {
                 'vorlauftemperatur':   '10-0008027f54a6',
                 'ruecklauftemperatur': '10-0008027f5818',
                 'warmwassertemperatur': '28-6757b90164ff',
-                'zirkulationsruecklauf': '28-1704b20164ff'
+                'zirkulationsruecklauf': '28-1704b20164ff',
+                'heizungsraum': '28-e02db90164ff'
                 }
 
 # connect to Modbus
@@ -60,6 +64,26 @@ except mariadb.Error as e:
     sys.exit(1)
 cur = conn.cursor()
 
+# load yml file to dictionary
+def read_cred(filename='/home/pi/heizungsmonitor/credentials.yml'):
+    with open(filename, "r") as stream:
+        try:
+            cred = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+    return(cred)
+
+def read_last(cred):
+    # read data from db
+    db_connection_str = f'mysql+pymysql://{cred["user"]}:{cred["pass"]}@{cred["host"]}/measurements'
+    db_connection = create_engine(db_connection_str)
+    row = pd.read_sql('select * from data order by time desc limit 1', 
+                      con=db_connection)
+    db_connection.dispose()
+    # convert time to a tz-aware time
+    row['time'] = row['time'].dt.tz_localize('utc')
+    return(row)
+
 # read data from modbus
 def read_modbus(mbclient, id, q):
     read = mbclient.read_holding_registers(
@@ -82,7 +106,8 @@ def read_temp(w1_slave):
     return(temperature)
 
 # start with current time stamp
-data = [['time', datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')]]
+utcnow = datetime.datetime.now(datetime.timezone.utc)
+data = [['time', utcnow.strftime('%Y-%m-%d %H:%M:%S')]]
 
 # add modbus data
 # product of regs and IDs is set up such that a quantity is retrieved first from
@@ -97,11 +122,20 @@ except:
 # add temperature data
 data = data + [[id, read_temp(thermometers[id])] for id in thermometers]
 
+# retrieve previous data and calculate deltas
+cred = read_cred()
+prev_row = read_last(cred)
+data = data + [
+    ['delta_time', (utcnow - prev_row['time']).dt.total_seconds()[0]],
+    ['delta_total_energy_1', dict(data)['total_energy_1'] - prev_row['total_energy_1'][0]],
+    ['delta_total_energy_2', dict(data)['total_energy_2'] - prev_row['total_energy_2'][0]]]
+
 # cobble together the SQL insert statement and execute it
 # need to distinguish between strings and floats for the values
-fields = ','.join([x[0]        for x in data])
-values = ','.join(['%f' % x[1] if isinstance(x[1], float) else '"%s"' % x[1] for x in data])
+fields = ','.join([x[0] for x in data])
+values = ','.join(['%.12f' % x[1] if isinstance(x[1], float) else '"%s"' % x[1] for x in data])
 sql = f'insert into data ({fields}) values ({values})'
+
 cur.execute(sql)
 conn.commit()
 

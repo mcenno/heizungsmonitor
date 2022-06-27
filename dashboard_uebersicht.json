@@ -29,6 +29,393 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "mysql",
+        "uid": "aGmTgnkgk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Gesamtleistung WP"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "unit",
+                "value": "kwatt"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "aGmTgnkgk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\",\n  total_power_1 AS \"Gesamtleistung WP\"\nFROM data\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Außentemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "vorlauftemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Vorlauftemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "ruecklauftemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Rücklauftemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "warmwassertemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Warmwassertemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "zirkulationsruecklauf"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Zirkulationsrücklauf"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "total_power_1"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Gesamtleistung WP"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "Temperaturen",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "aGmTgnkgk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Netzfrequenz"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/.*/",
+          "limit": 1,
+          "values": false
+        },
+        "text": {
+          "titleSize": 20,
+          "valueSize": 20
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "aGmTgnkgk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  frequency_1 AS \"Netzfrequenz\",\n  l1_voltage_1 AS \"Netzspannung\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\"\nFROM data\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Außentemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "vorlauftemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Vorlauftemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "ruecklauftemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Rücklauftemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "frequency_1"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Netzfrequenz"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "l1_voltage_1"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Netzspannung"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "warmwassertemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Warmwassertemperatur"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "zirkulationsruecklauf"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Zirkulationsrücklauf"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "Aktuelle Werte",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -43,7 +430,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 9
       },
       "hiddenSeries": false,
       "id": 10,
@@ -204,358 +591,6 @@
       "yaxis": {
         "align": false
       }
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "aGmTgnkgk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 1,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Netzfrequenz"
-            },
-            "properties": [
-              {
-                "id": "decimals",
-                "value": 2
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
-      "id": 3,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.5.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "aGmTgnkgk"
-          },
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\",\n  frequency_1 AS \"Netzfrequenz\",\n  l1_voltage_1 AS \"Netzspannung\"\nFROM data\nORDER BY time",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "aussentemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Außentemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "vorlauftemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Vorlauftemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "ruecklauftemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Rücklauftemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "frequency_1"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Netzfrequenz"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "l1_voltage_1"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Netzspannung"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "warmwassertemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Warmwassertemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "zirkulationsruecklauf"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Zirkulationsrücklauf"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "data",
-          "timeColumn": "time",
-          "timeColumnType": "timestamp",
-          "where": []
-        }
-      ],
-      "title": "Aktuelle Werte",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "mysql",
-        "uid": "aGmTgnkgk"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 9
-      },
-      "id": 2,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "mysql",
-            "uid": "aGmTgnkgk"
-          },
-          "format": "time_series",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\"\nFROM data\nORDER BY time",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "aussentemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Außentemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "vorlauftemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Vorlauftemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "ruecklauftemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Rücklauftemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "warmwassertemperatur"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Warmwassertemperatur"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "zirkulationsruecklauf"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "Zirkulationsrücklauf"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "data",
-          "timeColumn": "time",
-          "timeColumnType": "timestamp",
-          "where": []
-        }
-      ],
-      "title": "Temperaturen",
-      "type": "timeseries"
     }
   ],
   "refresh": "1m",
@@ -573,6 +608,6 @@
   "timezone": "",
   "title": "Übersicht",
   "uid": "CtvUxlRRk",
-  "version": 25,
+  "version": 32,
   "weekStart": ""
 }

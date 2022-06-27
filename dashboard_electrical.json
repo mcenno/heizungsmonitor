@@ -33,6 +33,1108 @@
                 "type": "mysql",
                 "uid": "aGmTgnkgk"
             },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "kwatt"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Gesamt.*WP/"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 2
+                            },
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Gesamt.*Haus/"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 2
+                            },
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-green",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 0
+            },
+            "id": 11,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_power_1 AS \"L1 Leistung WP\",\n  l2_power_1 AS \"L2 Leistung WP\",\n  l3_power_1 AS \"L3 Leistung WP\",\n  l1_power_2 AS \"L1 Leistung Haus\",\n  l2_power_2 AS \"L2 Leistung Haus\",\n  l3_power_2 AS \"L3 Leistung Haus\",\n  total_power_1 AS \"Gesamtleistung WP\",\n  total_power_2 AS \"Gesamtleistung Haus\"\nFROM data\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "l1_power_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Leistung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_power_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Leistung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_power_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Leistung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l1_power_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Leistung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_power_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Leistung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_power_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Leistung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_power_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Gesamtleistung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_power_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Gesamtleistung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Leistung",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "L1 Spannung Haus": 4,
+                            "L1 Spannung WP": 1,
+                            "L2 Spannung Haus": 5,
+                            "L2 Spannung WP": 2,
+                            "L3 Spannung Haus": 6,
+                            "L3 Spannung WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "axisSoftMin": 0,
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L1"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L2"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L3"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 0
+            },
+            "id": 18,
+            "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.9,
+                "groupWidth": 0.69,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xField": "Tageszeit",
+                "xTickLabelMaxLength": 0,
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "table",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "-- calculate the avg energy difference per hour of the day\nselect\n  -- now() time_sec,\n\tCAST(time_hh as CHAR(50)) Tageszeit,\n\tavg(delta_l1_energy_2)    L1,\n\tavg(delta_l2_energy_2)    L2,\n\tavg(delta_l3_energy_2)    L3\nfrom\n\t(\n\t-- lag the time and energy by one and calculate the difference\n\tselect\n\t\ttime_min,\n\t\tlag(time_hh, 1) over (order by time_min) time_hh,\n\t\tl1_energy_2_min,\n\t\tl2_energy_2_min,\n\t\tl3_energy_2_min,\n\t\ttotal_energy_2_min,\n\t\tlag(time_min , 1) over (order by time_min) time_lag,\n\t\tlag(l1_energy_2_min , 1) over (order by time_min) l1_energy_2_lag,\n\t\tlag(l2_energy_2_min , 1) over (order by time_min) l2_energy_2_lag,\n\t\tlag(l3_energy_2_min , 1) over (order by time_min) l3_energy_2_lag,\n\t\tlag(total_energy_2_min , 1) over (order by time_min) total_energy_2_lag,\n\t\tTIMEDIFF(time_min, lag(time_min, 1) over (order by time_min)) delta_time,\n\t\tl1_energy_2_min - lag(l1_energy_2_min, 1) over (order by time_min) delta_l1_energy_2,\n\t\tl2_energy_2_min - lag(l2_energy_2_min, 1) over (order by time_min) delta_l2_energy_2,\n\t\tl3_energy_2_min - lag(l3_energy_2_min, 1) over (order by time_min) delta_l3_energy_2,\n\t\ttotal_energy_2_min - lag(total_energy_2_min, 1) over (order by time_min) delta_total_energy_2\n\tfrom\n\t\t(\n\t\t-- calculate the minimum energy reading per (day, hour) group\n\t\tselect\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')) time_min,\n\t\t\tmin(l1_energy_2) l1_energy_2_min,\n\t\t\tmin(l2_energy_2) l2_energy_2_min,\n\t\t\tmin(l3_energy_2) l3_energy_2_min,\n\t\t\tmin(total_energy_2) total_energy_2_min,\n\t\t\t-- calculate average time for all times in group, then take only the hour part\n\t\t\thour(SEC_TO_TIME(AVG(TIME_TO_SEC(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))))) time_hh\n\t\tfrom\n\t\t\tmeasurements.data\n\t\tgroup by\n\t\t\thour(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')),\n\t\t\tday(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t\torder by\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t) mintime\n\t) deltas\nwhere\n\tdelta_time < \"01:00:05\"\n\tand delta_time > \"00:59:55\"\ngroup BY\n\ttime_hh\n",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "value"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "timeColumn": "time",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Mittlerer stündlicher Energieverbrauch (Haus)",
+            "transformations": [],
+            "type": "barchart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "decimals": 1,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "kwatth"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Gesamt.*WP/"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 2
+                            },
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Gesamt.*Haus/"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.lineWidth",
+                                "value": 2
+                            },
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-green",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 8
+            },
+            "id": 14,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_energy_1 AS \"L1 Energie WP\",\n  l2_energy_1 AS \"L2 Energie WP\",\n  l3_energy_1 AS \"L3 Energie WP\",\n  l1_energy_2 AS \"L1 Energie Haus\",\n  l2_energy_2 AS \"L2 Energie Haus\",\n  l3_energy_2 AS \"L3 Energie Haus\",\n  total_energy_1 AS \"Gesamtenergie WP\",\n  total_energy_2 AS \"Gesamtenergie Haus\"\nFROM data\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "l1_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Energie WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Energie WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Energie WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l1_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Energie Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Energie Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Energie Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Gesamtenergie WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Gesamtenergie Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Energie",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "L1 Spannung Haus": 4,
+                            "L1 Spannung WP": 1,
+                            "L2 Spannung Haus": 5,
+                            "L2 Spannung WP": 2,
+                            "L3 Spannung Haus": 6,
+                            "L3 Spannung WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "axisSoftMin": 0,
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L1"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L2"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "L3"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 8
+            },
+            "id": 17,
+            "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.9,
+                "groupWidth": 0.69,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xField": "Tageszeit",
+                "xTickLabelMaxLength": 0,
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "table",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "-- calculate the avg energy difference per hour of the day\nselect\n  -- now() time_sec,\n\tCAST(time_hh as CHAR(50)) Tageszeit,\n\tavg(delta_total_energy_2) Gesamt\nfrom\n\t(\n\t-- lag the time and energy by one and calculate the difference\n\tselect\n\t\ttime_min,\n\t\tlag(time_hh, 1) over (order by time_min) time_hh,\n\t\tl1_energy_2_min,\n\t\tl2_energy_2_min,\n\t\tl3_energy_2_min,\n\t\ttotal_energy_2_min,\n\t\tlag(time_min , 1) over (order by time_min) time_lag,\n\t\tlag(l1_energy_2_min , 1) over (order by time_min) l1_energy_2_lag,\n\t\tlag(l2_energy_2_min , 1) over (order by time_min) l2_energy_2_lag,\n\t\tlag(l3_energy_2_min , 1) over (order by time_min) l3_energy_2_lag,\n\t\tlag(total_energy_2_min , 1) over (order by time_min) total_energy_2_lag,\n\t\tTIMEDIFF(time_min, lag(time_min, 1) over (order by time_min)) delta_time,\n\t\tl1_energy_2_min - lag(l1_energy_2_min, 1) over (order by time_min) delta_l1_energy_2,\n\t\tl2_energy_2_min - lag(l2_energy_2_min, 1) over (order by time_min) delta_l2_energy_2,\n\t\tl3_energy_2_min - lag(l3_energy_2_min, 1) over (order by time_min) delta_l3_energy_2,\n\t\ttotal_energy_2_min - lag(total_energy_2_min, 1) over (order by time_min) delta_total_energy_2\n\tfrom\n\t\t(\n\t\t-- calculate the minimum energy reading per (day, hour) group\n\t\tselect\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')) time_min,\n\t\t\tmin(l1_energy_2) l1_energy_2_min,\n\t\t\tmin(l2_energy_2) l2_energy_2_min,\n\t\t\tmin(l3_energy_2) l3_energy_2_min,\n\t\t\tmin(total_energy_2) total_energy_2_min,\n\t\t\t-- calculate average time for all times in group, then take only the hour part\n\t\t\thour(SEC_TO_TIME(AVG(TIME_TO_SEC(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))))) time_hh\n\t\tfrom\n\t\t\tmeasurements.data\n\t\tgroup by\n\t\t\thour(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')),\n\t\t\tday(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t\torder by\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t) mintime\n\t) deltas\nwhere\n\tdelta_time < \"01:00:05\"\n\tand delta_time > \"00:59:55\"\ngroup BY\n\ttime_hh\n",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "value"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "timeColumn": "time",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Mittlerer stündlicher Energieverbrauch (Haus)",
+            "transformations": [],
+            "type": "barchart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
             "fieldConfig": {
                 "defaults": {
                     "color": {
@@ -51,7 +1153,7 @@
                             "viz": false
                         },
                         "lineInterpolation": "smooth",
-                        "lineWidth": 2,
+                        "lineWidth": 1,
                         "pointSize": 5,
                         "scaleDistribution": {
                             "type": "linear"
@@ -83,13 +1185,134 @@
                     },
                     "unit": "volt"
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 0
+                "y": 16
             },
             "id": 4,
             "options": {
@@ -113,7 +1336,7 @@
                     "group": [],
                     "metricColumn": "none",
                     "rawQuery": false,
-                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1 AS \"L1 Spannung WP\",\n  l1_voltage_2 AS \"L1 Spannung Haus\"\nFROM data\nORDER BY time",
+                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1 AS \"L1 Spannung WP\",\n  l2_voltage_1 AS \"L2 Spannung WP\",\n  l3_voltage_1 AS \"L3 Spannung WP\",\n  l1_voltage_2 AS \"L1 Spannung Haus\",\n  l2_voltage_2 AS \"L2 Spannung Haus\",\n  l3_voltage_2 AS \"L3 Spannung Haus\"\nFROM data\nORDER BY time",
                     "refId": "A",
                     "select": [
                         [
@@ -133,6 +1356,34 @@
                         [
                             {
                                 "params": [
+                                    "l2_voltage_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Spannung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_voltage_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Spannung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
                                     "l1_voltage_2"
                                 ],
                                 "type": "column"
@@ -140,6 +1391,34 @@
                             {
                                 "params": [
                                     "L1 Spannung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_voltage_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Spannung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_voltage_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Spannung Haus"
                                 ],
                                 "type": "alias"
                             }
@@ -152,7 +1431,516 @@
                 }
             ],
             "title": "Netzspannung",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "L1 Spannung Haus": 4,
+                            "L1 Spannung WP": 1,
+                            "L2 Spannung Haus": 5,
+                            "L2 Spannung WP": 2,
+                            "L3 Spannung Haus": 6,
+                            "L3 Spannung WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
             "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "decimals": 1,
+                    "mappings": [],
+                    "unit": "kwatt"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/WP/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Haus/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 12,
+                "y": 16
+            },
+            "id": 13,
+            "options": {
+                "displayLabels": [],
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "values": [
+                        "value"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  total_power_1 AS \"WP\",\n  total_power_2 AS \"Haus\"\nFROM data\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "total_power_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_power_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Gesamtleistung aktuell",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "Gesamtenergie Haus": 8,
+                            "Gesamtenergie WP": 4,
+                            "L1 Energie Haus": 5,
+                            "L1 Energie WP": 1,
+                            "L2 Energie Haus": 6,
+                            "L2 Energie WP": 2,
+                            "L3 Energie Haus": 7,
+                            "L3 Energie WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "piechart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "description": "",
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        }
+                    },
+                    "decimals": 1,
+                    "mappings": [],
+                    "unit": "kwatth"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/WP/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/Haus/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-green",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 6,
+                "x": 18,
+                "y": 16
+            },
+            "id": 12,
+            "options": {
+                "legend": {
+                    "displayMode": "list",
+                    "placement": "right",
+                    "values": [
+                        "value"
+                    ]
+                },
+                "pieType": "donut",
+                "reduceOptions": {
+                    "calcs": [
+                        "last"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  total_energy_1 AS \"WP\",\n  total_energy_2 AS \"Haus\"\nFROM data\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "total_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "total_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Gesamtenergie aktuell",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "Gesamtenergie Haus": 8,
+                            "Gesamtenergie WP": 4,
+                            "L1 Energie Haus": 5,
+                            "L1 Energie WP": 1,
+                            "L2 Energie Haus": 6,
+                            "L2 Energie WP": 2,
+                            "L3 Energie Haus": 7,
+                            "L3 Energie WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "piechart"
         },
         {
             "datasource": {
@@ -196,10 +1984,10 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
-                "y": 0
+                "x": 0,
+                "y": 24
             },
-            "id": 8,
+            "id": 15,
             "options": {
                 "bucketOffset": 0,
                 "bucketSize": 0.2,
@@ -301,8 +2089,8 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 0,
-                "y": 8
+                "x": 12,
+                "y": 24
             },
             "id": 6,
             "options": {
@@ -410,7 +2198,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 8
+                "y": 32
             },
             "id": 10,
             "options": {
@@ -455,7 +2243,7 @@
             "type": "histogram"
         }
     ],
-    "refresh": "",
+    "refresh": false,
     "schemaVersion": 36,
     "style": "dark",
     "tags": [],
@@ -470,6 +2258,6 @@
     "timezone": "",
     "title": "Electrical",
     "uid": "kMChx8zgk",
-    "version": 5,
+    "version": 31,
     "weekStart": ""
 }
