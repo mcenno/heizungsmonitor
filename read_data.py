@@ -80,7 +80,7 @@ def read_last(cred):
     row = pd.read_sql('select * from data order by time desc limit 1', 
                       con=db_connection)
     db_connection.dispose()
-    # convert from utc to local time
+    # convert time to a tz-aware time
     row['time'] = row['time'].dt.tz_localize('utc')
     return(row)
 
