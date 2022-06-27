@@ -2,3 +2,4 @@
 venv39/
 .DS_Store
 measurements.sql.gz
+backup_raspi64_*.gz
