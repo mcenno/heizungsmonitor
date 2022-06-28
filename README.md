@@ -1,5 +1,11 @@
 # Datenerfassung der Heizung
 
+
+## Änderungen an den Einstellungen
+
+* ab 2022-06-24: Zirkulationspumpe springt 0.5h vor Warmwasserbereitung an
+
+
 ## Daten der Temperatursensoren einlesen
 
 * Knoten rpi-ds18b20 liest alle Sensoren aus
@@ -109,3 +115,4 @@ create table data(
   l3_energy_2         double
 );
 `
+
