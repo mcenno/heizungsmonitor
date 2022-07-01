@@ -77,42 +77,64 @@
 * Ein paar Befehle:
   * `create database measurements;`
   * `use measurements;`
-  * `
-create table data(
-  time                timestamp, 
-  aussentemperatur    double, 
-  vorlauftemperatur   double, 
-  ruecklauftemperatur double,
-  frequency_1         double,
-  l1_voltage_1        double,
-  l2_voltage_1        double,
-  l3_voltage_1        double,
-  l1_current_1        double,
-  l2_current_1        double,
-  l3_current_1        double,
-  total_power_1       double,
-  l1_power_1          double,
-  l2_power_1          double,
-  l3_power_1          double,
-  total_energy_1      double,
-  l1_energy_1         double,
-  l2_energy_1         double,
-  l3_energy_1         double,
-  frequency_2         double,
-  l1_voltage_2        double,
-  l2_voltage_2        double,
-  l3_voltage_2        double,
-  l1_current_2        double,
-  l2_current_2        double,
-  l3_current_2        double,
-  total_power_2       double,
-  l1_power_2          double,
-  l2_power_2          double,
-  l3_power_2          double,
-  total_energy_2      double,
-  l1_energy_2         double,
-  l2_energy_2         double,
-  l3_energy_2         double
-);
-`
+  * 
+    ```
+    create table data(
+      time                timestamp, 
+      aussentemperatur    double, 
+      vorlauftemperatur   double, 
+      ruecklauftemperatur double,
+      frequency_1         double,
+      l1_voltage_1        double,
+      l2_voltage_1        double,
+      l3_voltage_1        double,
+      l1_current_1        double,
+      l2_current_1        double,
+      l3_current_1        double,
+      total_power_1       double,
+      l1_power_1          double,
+      l2_power_1          double,
+      l3_power_1          double,
+      total_energy_1      double,
+      l1_energy_1         double,
+      l2_energy_1         double,
+      l3_energy_1         double,
+      frequency_2         double,
+      l1_voltage_2        double,
+      l2_voltage_2        double,
+      l3_voltage_2        double,
+      l1_current_2        double,
+      l2_current_2        double,
+      l3_current_2        double,
+      total_power_2       double,
+      l1_power_2          double,
+      l2_power_2          double,
+      l3_power_2          double,
+      total_energy_2      double,
+      l1_energy_2         double,
+      l2_energy_2         double,
+      l3_energy_2         double
+    );
+    ```
 
+  * Fehlerhafte Daten löschen:
+    ```
+    drop table data_backup;
+
+    CREATE TABLE data_backup AS SELECT * FROM data;
+
+    UPDATE data 
+    SET 
+    delta_time = NULL,
+    delta_total_energy_1 = NULL,
+    delta_total_energy_2 = NULL
+    WHERE delta_time < 30
+    ```
+    Aber aufgepasst: die Spalte `time` hatte das Attribut `on update
+    current_timestamp()`, so dass ein Update die Zeitstempel auf die aktuelle
+    Zeit gesetzt hat. Dieses Attribut kann mit
+
+    `ALTER TABLE data CHANGE time time TIMESTAMP NOT NULL DEFAULT
+    CURRENT_TIMESTAMP` 
+
+    zurückgesetzt werden (siehe https://gist.github.com/dmdavis/2790180)

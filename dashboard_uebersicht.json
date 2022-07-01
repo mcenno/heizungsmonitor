@@ -51,6 +51,124 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "aGmTgnkgk"
+          },
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"aussentemperatur\"\nFROM data\nWHERE\n  $__timeFilter(time)\nORDER BY time",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Temperaturverlauf",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "aGmTgnkgk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
             "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
@@ -96,6 +214,10 @@
               {
                 "id": "unit",
                 "value": "kwatt"
+              },
+              {
+                "id": "decimals",
+                "value": 3
               }
             ]
           }
@@ -104,7 +226,7 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 0
       },
       "id": 2,
@@ -129,7 +251,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": false,
-          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\",\n  total_power_1 AS \"Gesamtleistung WP\"\nFROM data\nORDER BY time",
+          "rawSql": "SELECT\n  time AS \"time\",\n  aussentemperatur AS \"Außentemperatur\",\n  vorlauftemperatur AS \"Vorlauftemperatur\",\n  ruecklauftemperatur AS \"Rücklauftemperatur\",\n  warmwassertemperatur AS \"Warmwassertemperatur\",\n  zirkulationsruecklauf AS \"Zirkulationsrücklauf\",\n  total_power_1 AS \"Gesamtleistung WP\",\n  heizungsraum AS \"Heizungsraum\"\nFROM data\nORDER BY time",
           "refId": "A",
           "select": [
             [
@@ -215,6 +337,20 @@
                 ],
                 "type": "alias"
               }
+            ],
+            [
+              {
+                "params": [
+                  "heizungsraum"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "Heizungsraum"
+                ],
+                "type": "alias"
+              }
             ]
           ],
           "table": "data",
@@ -225,6 +361,168 @@
       ],
       "title": "Temperaturen",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "aGmTgnkgk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Außentemperatur (min)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 12,
+      "options": {
+        "barRadius": 0.05,
+        "barWidth": 0.96,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "aGmTgnkgk"
+          },
+          "format": "time_series",
+          "group": [
+            {
+              "params": [
+                "1d",
+                "none"
+              ],
+              "type": "time"
+            }
+          ],
+          "metricColumn": "none",
+          "rawQuery": false,
+          "rawSql": "SELECT\n  $__timeGroupAlias(time,1d),\n  min(aussentemperatur) AS \"Außentemperatur (min)\",\n  max(aussentemperatur) AS \"Außentemperatur (max)\"\nFROM data\nGROUP BY 1\nORDER BY $__timeGroup(time,1d)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "min"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "Außentemperatur (min)"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "aussentemperatur"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "max"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "Außentemperatur (max)"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "Maximaltemperaturen",
+      "transformations": [],
+      "type": "barchart"
     },
     {
       "datasource": {
@@ -271,7 +569,7 @@
         "h": 18,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 9
       },
       "id": 3,
       "options": {
@@ -430,7 +728,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 16
       },
       "hiddenSeries": false,
       "id": 10,
@@ -608,6 +906,6 @@
   "timezone": "",
   "title": "Übersicht",
   "uid": "CtvUxlRRk",
-  "version": 32,
+  "version": 35,
   "weekStart": ""
 }

@@ -30,6 +30,54 @@
     "panels": [
         {
             "datasource": {
+                "type": "influxdb",
+                "uid": "Ym9TmFRgz"
+            },
+            "description": "",
+            "gridPos": {
+                "h": 2,
+                "w": 24,
+                "x": 0,
+                "y": 0
+            },
+            "id": 20,
+            "options": {
+                "bgColor": "",
+                "clockType": "24 hour",
+                "countdownSettings": {
+                    "endCountdownTime": "2022-06-19T18:29:35+02:00",
+                    "endText": "00:00:00"
+                },
+                "countupSettings": {
+                    "beginCountupTime": "2022-06-19T18:29:35+02:00",
+                    "beginText": "00:00:00"
+                },
+                "dateSettings": {
+                    "dateFormat": "YYYY-MM-DD",
+                    "fontSize": "20px",
+                    "fontWeight": "normal",
+                    "locale": "",
+                    "showDate": false
+                },
+                "mode": "time",
+                "refresh": "sec",
+                "timeSettings": {
+                    "fontSize": "16px",
+                    "fontWeight": "normal"
+                },
+                "timezone": "",
+                "timezoneSettings": {
+                    "fontSize": "12px",
+                    "fontWeight": "normal",
+                    "showTimezone": true,
+                    "zoneFormat": "offsetAbbv"
+                }
+            },
+            "pluginVersion": "2.0.0",
+            "type": "grafana-clock-panel"
+        },
+        {
+            "datasource": {
                 "type": "mysql",
                 "uid": "aGmTgnkgk"
             },
@@ -67,7 +115,7 @@
                             "mode": "off"
                         }
                     },
-                    "decimals": 2,
+                    "decimals": 3,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -259,7 +307,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 0
+                "y": 2
             },
             "id": 11,
             "options": {
@@ -410,7 +458,11 @@
                 {
                     "id": "organize",
                     "options": {
-                        "excludeByName": {},
+                        "excludeByName": {
+                            "L1 Leistung WP": true,
+                            "L2 Leistung WP": true,
+                            "L3 Leistung WP": true
+                        },
                         "indexByName": {
                             "L1 Spannung Haus": 4,
                             "L1 Spannung WP": 1,
@@ -517,7 +569,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 0
+                "y": 2
             },
             "id": 18,
             "options": {
@@ -576,6 +628,253 @@
                 }
             ],
             "title": "Mittlerer stündlicher Energieverbrauch (Haus)",
+            "transformations": [],
+            "type": "barchart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "axisSoftMin": 0,
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        }
+                    },
+                    "decimals": 2,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "WP"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 10
+            },
+            "id": 21,
+            "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.9,
+                "groupWidth": 0.69,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xField": "Datum",
+                "xTickLabelMaxLength": 0,
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "table",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "-- calculate the avg energy difference per hour of the day\nselect\n\tCAST(CAST(time_lag as date) as char(50)) Datum,\n\tdelta_total_energy_1 as WP,\n\tdelta_total_energy_2 as Haus,\n\tdelta_time \nfrom\n\t(\n\t-- lag the time and energy by one and calculate the difference\n\tselect\n\t\ttime_min,\n\t\ttotal_energy_1_min,\n\t\ttotal_energy_2_min,\n\t\tlag(time_min, 1) over (order by time_min) time_lag,\n\t\tlag(total_energy_1_min, 1) over (order by time_min) total_energy_1_lag,\n\t\tlag(total_energy_2_min, 1) over (order by time_min) total_energy_2_lag,\n\t\tTIMEDIFF(time_min, lag(time_min, 1) over (order by time_min)) delta_time,\n\t\ttotal_energy_1_min - lag(total_energy_1_min, 1) over (order by time_min) delta_total_energy_1,\n\t\ttotal_energy_2_min - lag(total_energy_2_min, 1) over (order by time_min) delta_total_energy_2\n\tfrom\n\t\t(\n\t\t-- calculate the minimum energy reading per (day, hour) group\n\t\tselect\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')) time_min,\n\t\t\tmin(total_energy_1) total_energy_1_min,\n\t\t\tmin(total_energy_2) total_energy_2_min\n\t\tfrom\n\t\t\tmeasurements.data\n\t\tgroup by\n\t\t\tday(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t\torder by\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t) mintime\n\t) deltas\n-- where\n--\tdelta_time < \"24:05:00\"\n--\tand delta_time > \"23:55:00\"\n",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "value"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "timeColumn": "time",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Tagesverbrauch",
+            "transformations": [],
+            "type": "barchart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "axisSoftMin": 0,
+                        "fillOpacity": 80,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "WP"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 10
+            },
+            "id": 17,
+            "options": {
+                "barRadius": 0.05,
+                "barWidth": 0.9,
+                "groupWidth": 0.69,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xField": "Tageszeit",
+                "xTickLabelMaxLength": 0,
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "table",
+                    "group": [],
+                    "hide": false,
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "-- calculate the avg energy difference per hour of the day\nselect\n  -- now() time_sec,\n\tCAST(time_hh as CHAR(50)) Tageszeit,\n\tavg(delta_total_energy_1) WP,\n\tavg(delta_total_energy_2) Haus\nfrom\n\t(\n\t-- lag the time and energy by one and calculate the difference\n\tselect\n\t\ttime_min,\n\t\tlag(time_hh, 1) over (order by time_min) time_hh,\n\t\tl1_energy_2_min,\n\t\tl2_energy_2_min,\n\t\tl3_energy_2_min,\n\t\ttotal_energy_1_min,\n\t\ttotal_energy_2_min,\n\t\tlag(time_min , 1) over (order by time_min) time_lag,\n\t\tlag(l1_energy_2_min , 1) over (order by time_min) l1_energy_2_lag,\n\t\tlag(l2_energy_2_min , 1) over (order by time_min) l2_energy_2_lag,\n\t\tlag(l3_energy_2_min , 1) over (order by time_min) l3_energy_2_lag,\n\t\tlag(total_energy_1_min , 1) over (order by time_min) total_energy_1_lag,\n\t\tlag(total_energy_2_min , 1) over (order by time_min) total_energy_2_lag,\n\t\tTIMEDIFF(time_min, lag(time_min, 1) over (order by time_min)) delta_time,\n\t\tl1_energy_2_min - lag(l1_energy_2_min, 1) over (order by time_min) delta_l1_energy_2,\n\t\tl2_energy_2_min - lag(l2_energy_2_min, 1) over (order by time_min) delta_l2_energy_2,\n\t\tl3_energy_2_min - lag(l3_energy_2_min, 1) over (order by time_min) delta_l3_energy_2,\n\t\ttotal_energy_1_min - lag(total_energy_1_min, 1) over (order by time_min) delta_total_energy_1,\n\t\ttotal_energy_2_min - lag(total_energy_2_min, 1) over (order by time_min) delta_total_energy_2\n\tfrom\n\t\t(\n\t\t-- calculate the minimum energy reading per (day, hour) group\n\t\tselect\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')) time_min,\n\t\t\tmin(l1_energy_2) l1_energy_2_min,\n\t\t\tmin(l2_energy_2) l2_energy_2_min,\n\t\t\tmin(l3_energy_2) l3_energy_2_min,\n\t\t\tmin(total_energy_1) total_energy_1_min,\n\t\t\tmin(total_energy_2) total_energy_2_min,\n\t\t\t-- calculate average time for all times in group, then take only the hour part\n\t\t\thour(SEC_TO_TIME(AVG(TIME_TO_SEC(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))))) time_hh\n\t\tfrom\n\t\t\tmeasurements.data\n\t\tgroup by\n\t\t\thour(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')),\n\t\t\tday(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t\torder by\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t) mintime\n\t) deltas\nwhere\n\tdelta_time < \"01:00:05\"\n\tand delta_time > \"00:59:55\"\ngroup BY\n\ttime_hh\n",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "value"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "timeColumn": "time",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Mittlerer stündlicher Energieverbrauch",
             "transformations": [],
             "type": "barchart"
         },
@@ -810,7 +1109,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 8
+                "y": 18
             },
             "id": 14,
             "options": {
@@ -982,480 +1281,6 @@
                 "type": "mysql",
                 "uid": "aGmTgnkgk"
             },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "fixedColor": "green",
-                        "mode": "fixed"
-                    },
-                    "custom": {
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "axisSoftMin": 0,
-                        "fillOpacity": 80,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "lineWidth": 1,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            }
-                        ]
-                    },
-                    "unit": "none"
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "L1"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "blue",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "L2"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "light-yellow",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byName",
-                            "options": "L3"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "super-light-red",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 12,
-                "y": 8
-            },
-            "id": 17,
-            "options": {
-                "barRadius": 0.05,
-                "barWidth": 0.9,
-                "groupWidth": 0.69,
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom"
-                },
-                "orientation": "auto",
-                "showValue": "auto",
-                "stacking": "none",
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                },
-                "xField": "Tageszeit",
-                "xTickLabelMaxLength": 0,
-                "xTickLabelRotation": 0,
-                "xTickLabelSpacing": 0
-            },
-            "pluginVersion": "8.5.3",
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "mysql",
-                        "uid": "aGmTgnkgk"
-                    },
-                    "format": "table",
-                    "group": [],
-                    "hide": false,
-                    "metricColumn": "none",
-                    "rawQuery": true,
-                    "rawSql": "-- calculate the avg energy difference per hour of the day\nselect\n  -- now() time_sec,\n\tCAST(time_hh as CHAR(50)) Tageszeit,\n\tavg(delta_total_energy_2) Gesamt\nfrom\n\t(\n\t-- lag the time and energy by one and calculate the difference\n\tselect\n\t\ttime_min,\n\t\tlag(time_hh, 1) over (order by time_min) time_hh,\n\t\tl1_energy_2_min,\n\t\tl2_energy_2_min,\n\t\tl3_energy_2_min,\n\t\ttotal_energy_2_min,\n\t\tlag(time_min , 1) over (order by time_min) time_lag,\n\t\tlag(l1_energy_2_min , 1) over (order by time_min) l1_energy_2_lag,\n\t\tlag(l2_energy_2_min , 1) over (order by time_min) l2_energy_2_lag,\n\t\tlag(l3_energy_2_min , 1) over (order by time_min) l3_energy_2_lag,\n\t\tlag(total_energy_2_min , 1) over (order by time_min) total_energy_2_lag,\n\t\tTIMEDIFF(time_min, lag(time_min, 1) over (order by time_min)) delta_time,\n\t\tl1_energy_2_min - lag(l1_energy_2_min, 1) over (order by time_min) delta_l1_energy_2,\n\t\tl2_energy_2_min - lag(l2_energy_2_min, 1) over (order by time_min) delta_l2_energy_2,\n\t\tl3_energy_2_min - lag(l3_energy_2_min, 1) over (order by time_min) delta_l3_energy_2,\n\t\ttotal_energy_2_min - lag(total_energy_2_min, 1) over (order by time_min) delta_total_energy_2\n\tfrom\n\t\t(\n\t\t-- calculate the minimum energy reading per (day, hour) group\n\t\tselect\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')) time_min,\n\t\t\tmin(l1_energy_2) l1_energy_2_min,\n\t\t\tmin(l2_energy_2) l2_energy_2_min,\n\t\t\tmin(l3_energy_2) l3_energy_2_min,\n\t\t\tmin(total_energy_2) total_energy_2_min,\n\t\t\t-- calculate average time for all times in group, then take only the hour part\n\t\t\thour(SEC_TO_TIME(AVG(TIME_TO_SEC(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))))) time_hh\n\t\tfrom\n\t\t\tmeasurements.data\n\t\tgroup by\n\t\t\thour(CONVERT_TZ(time, 'UTC', 'Europe/Berlin')),\n\t\t\tday(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t\torder by\n\t\t\tmin(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))\n\t) mintime\n\t) deltas\nwhere\n\tdelta_time < \"01:00:05\"\n\tand delta_time > \"00:59:55\"\ngroup BY\n\ttime_hh\n",
-                    "refId": "A",
-                    "select": [
-                        [
-                            {
-                                "params": [
-                                    "value"
-                                ],
-                                "type": "column"
-                            }
-                        ]
-                    ],
-                    "timeColumn": "time",
-                    "where": [
-                        {
-                            "name": "$__timeFilter",
-                            "params": [],
-                            "type": "macro"
-                        }
-                    ]
-                }
-            ],
-            "title": "Mittlerer stündlicher Energieverbrauch (Haus)",
-            "transformations": [],
-            "type": "barchart"
-        },
-        {
-            "datasource": {
-                "type": "mysql",
-                "uid": "aGmTgnkgk"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "lineInterpolation": "smooth",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "decimals": 1,
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    },
-                    "unit": "volt"
-                },
-                "overrides": [
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L1.*WP$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-blue",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L1.*Haus$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "light-blue",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineStyle",
-                                "value": {
-                                    "dash": [
-                                        25,
-                                        10
-                                    ],
-                                    "fill": "dash"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L2.*WP$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-yellow",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L2.*Haus$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "super-light-yellow",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineStyle",
-                                "value": {
-                                    "dash": [
-                                        25,
-                                        10
-                                    ],
-                                    "fill": "dash"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L3.*WP$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "dark-red",
-                                    "mode": "fixed"
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "matcher": {
-                            "id": "byRegexp",
-                            "options": "/^L3.*Haus$/"
-                        },
-                        "properties": [
-                            {
-                                "id": "color",
-                                "value": {
-                                    "fixedColor": "super-light-red",
-                                    "mode": "fixed"
-                                }
-                            },
-                            {
-                                "id": "custom.lineStyle",
-                                "value": {
-                                    "dash": [
-                                        25,
-                                        10
-                                    ],
-                                    "fill": "dash"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 0,
-                "y": 16
-            },
-            "id": 4,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom"
-                },
-                "tooltip": {
-                    "mode": "multi",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "mysql",
-                        "uid": "aGmTgnkgk"
-                    },
-                    "format": "time_series",
-                    "group": [],
-                    "metricColumn": "none",
-                    "rawQuery": false,
-                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1 AS \"L1 Spannung WP\",\n  l2_voltage_1 AS \"L2 Spannung WP\",\n  l3_voltage_1 AS \"L3 Spannung WP\",\n  l1_voltage_2 AS \"L1 Spannung Haus\",\n  l2_voltage_2 AS \"L2 Spannung Haus\",\n  l3_voltage_2 AS \"L3 Spannung Haus\"\nFROM data\nORDER BY time",
-                    "refId": "A",
-                    "select": [
-                        [
-                            {
-                                "params": [
-                                    "l1_voltage_1"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L1 Spannung WP"
-                                ],
-                                "type": "alias"
-                            }
-                        ],
-                        [
-                            {
-                                "params": [
-                                    "l2_voltage_1"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L2 Spannung WP"
-                                ],
-                                "type": "alias"
-                            }
-                        ],
-                        [
-                            {
-                                "params": [
-                                    "l3_voltage_1"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L3 Spannung WP"
-                                ],
-                                "type": "alias"
-                            }
-                        ],
-                        [
-                            {
-                                "params": [
-                                    "l1_voltage_2"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L1 Spannung Haus"
-                                ],
-                                "type": "alias"
-                            }
-                        ],
-                        [
-                            {
-                                "params": [
-                                    "l2_voltage_2"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L2 Spannung Haus"
-                                ],
-                                "type": "alias"
-                            }
-                        ],
-                        [
-                            {
-                                "params": [
-                                    "l3_voltage_2"
-                                ],
-                                "type": "column"
-                            },
-                            {
-                                "params": [
-                                    "L3 Spannung Haus"
-                                ],
-                                "type": "alias"
-                            }
-                        ]
-                    ],
-                    "table": "data",
-                    "timeColumn": "time",
-                    "timeColumnType": "timestamp",
-                    "where": []
-                }
-            ],
-            "title": "Netzspannung",
-            "transformations": [
-                {
-                    "id": "organize",
-                    "options": {
-                        "excludeByName": {},
-                        "indexByName": {
-                            "L1 Spannung Haus": 4,
-                            "L1 Spannung WP": 1,
-                            "L2 Spannung Haus": 5,
-                            "L2 Spannung WP": 2,
-                            "L3 Spannung Haus": 6,
-                            "L3 Spannung WP": 3,
-                            "Time": 0
-                        },
-                        "renameByName": {}
-                    }
-                }
-            ],
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "mysql",
-                "uid": "aGmTgnkgk"
-            },
             "description": "",
             "fieldConfig": {
                 "defaults": {
@@ -1600,7 +1425,7 @@
                 "h": 8,
                 "w": 6,
                 "x": 12,
-                "y": 16
+                "y": 18
             },
             "id": 13,
             "options": {
@@ -1846,7 +1671,7 @@
                 "h": 8,
                 "w": 6,
                 "x": 18,
-                "y": 16
+                "y": 18
             },
             "id": 12,
             "options": {
@@ -1947,22 +1772,317 @@
                 "type": "mysql",
                 "uid": "aGmTgnkgk"
             },
+            "description": "",
             "fieldConfig": {
                 "defaults": {
                     "color": {
-                        "mode": "thresholds"
+                        "mode": "palette-classic"
                     },
                     "custom": {
-                        "fillOpacity": 58,
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "axisSoftMin": 0,
+                        "fillOpacity": 80,
                         "gradientMode": "none",
                         "hideFrom": {
                             "legend": false,
                             "tooltip": false,
                             "viz": false
                         },
-                        "lineWidth": 1
+                        "lineWidth": 1,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        }
                     },
-                    "decimals": 2,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 26
+            },
+            "id": 23,
+            "options": {
+                "barRadius": 0,
+                "barWidth": 0.97,
+                "groupWidth": 0.7,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "orientation": "auto",
+                "showValue": "auto",
+                "stacking": "none",
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                },
+                "xTickLabelRotation": 0,
+                "xTickLabelSpacing": 0
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "table",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": true,
+                    "rawSql": "select \ncast(min(hour(CONVERT_TZ(time, 'UTC', 'Europe/Berlin'))) as char(50)) local_time, \nsum(delta_total_energy_1) WP,\nsum(delta_total_energy_2) Haus\nfrom `data` d \nwhere delta_total_energy_1 is not NULL\nand delta_total_energy_2 is not NULL \nand delta_time > 55\nand delta_time < 65\nGROUP by hour(time)",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "delta_total_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "sum"
+                                ],
+                                "type": "aggregate"
+                            },
+                            {
+                                "params": [
+                                    "delta_total_energy_1"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Test with energy deltas",
+            "transformations": [],
+            "type": "barchart"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "decimals": 3,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "kwatth"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Zeitintervall"
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.axisPlacement",
+                                "value": "right"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "s"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 26
+            },
+            "id": 25,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  delta_total_energy_1 AS \"WP\",\n  delta_total_energy_2 AS \"Haus\",\n  delta_time AS \"Zeitintervall\"\nFROM data\nWHERE\n  $__timeFilter(time)\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "delta_total_energy_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "delta_total_energy_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "delta_time"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "Zeitintervall"
+                                ],
+                                "type": "alias"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": [
+                        {
+                            "name": "$__timeFilter",
+                            "params": [],
+                            "type": "macro"
+                        }
+                    ]
+                }
+            ],
+            "title": "Energy Deltas",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "smooth",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "decimals": 1,
                     "mappings": [],
                     "thresholds": {
                         "mode": "absolute",
@@ -1979,25 +2099,147 @@
                     },
                     "unit": "volt"
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L1.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "light-blue",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-yellow",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L2.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-yellow",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*WP$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "dark-red",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byRegexp",
+                            "options": "/^L3.*Haus$/"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "super-light-red",
+                                    "mode": "fixed"
+                                }
+                            },
+                            {
+                                "id": "custom.lineStyle",
+                                "value": {
+                                    "dash": [
+                                        25,
+                                        10
+                                    ],
+                                    "fill": "dash"
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
             "gridPos": {
                 "h": 8,
                 "w": 12,
                 "x": 0,
-                "y": 24
+                "y": 34
             },
-            "id": 15,
+            "id": 4,
             "options": {
-                "bucketOffset": 0,
-                "bucketSize": 0.2,
                 "legend": {
                     "calcs": [],
-                    "displayMode": "hidden",
+                    "displayMode": "list",
                     "placement": "bottom"
+                },
+                "tooltip": {
+                    "mode": "multi",
+                    "sort": "none"
                 }
             },
-            "pluginVersion": "8.5.3",
             "targets": [
                 {
                     "datasource": {
@@ -2008,7 +2250,7 @@
                     "group": [],
                     "metricColumn": "none",
                     "rawQuery": false,
-                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1\nFROM data\nORDER BY time",
+                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1 AS \"L1 Spannung WP\",\n  l2_voltage_1 AS \"L2 Spannung WP\",\n  l3_voltage_1 AS \"L3 Spannung WP\",\n  l1_voltage_2 AS \"L1 Spannung Haus\",\n  l2_voltage_2 AS \"L2 Spannung Haus\",\n  l3_voltage_2 AS \"L3 Spannung Haus\"\nFROM data\nORDER BY time",
                     "refId": "A",
                     "select": [
                         [
@@ -2017,6 +2259,82 @@
                                     "l1_voltage_1"
                                 ],
                                 "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Spannung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_voltage_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Spannung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_voltage_1"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Spannung WP"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l1_voltage_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L1 Spannung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l2_voltage_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L2 Spannung Haus"
+                                ],
+                                "type": "alias"
+                            }
+                        ],
+                        [
+                            {
+                                "params": [
+                                    "l3_voltage_2"
+                                ],
+                                "type": "column"
+                            },
+                            {
+                                "params": [
+                                    "L3 Spannung Haus"
+                                ],
+                                "type": "alias"
                             }
                         ]
                     ],
@@ -2026,8 +2344,26 @@
                     "where": []
                 }
             ],
-            "title": "Spannungsverteilung",
-            "type": "histogram"
+            "title": "Netzspannung",
+            "transformations": [
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {},
+                        "indexByName": {
+                            "L1 Spannung Haus": 4,
+                            "L1 Spannung WP": 1,
+                            "L2 Spannung Haus": 5,
+                            "L2 Spannung WP": 2,
+                            "L3 Spannung Haus": 6,
+                            "L3 Spannung WP": 3,
+                            "Time": 0
+                        },
+                        "renameByName": {}
+                    }
+                }
+            ],
+            "type": "timeseries"
         },
         {
             "datasource": {
@@ -2090,7 +2426,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 24
+                "y": 34
             },
             "id": 6,
             "options": {
@@ -2175,6 +2511,93 @@
                         },
                         "lineWidth": 1
                     },
+                    "decimals": 2,
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "volt"
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 42
+            },
+            "id": 15,
+            "options": {
+                "bucketOffset": 0,
+                "bucketSize": 0.2,
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "hidden",
+                    "placement": "bottom"
+                }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "mysql",
+                        "uid": "aGmTgnkgk"
+                    },
+                    "format": "time_series",
+                    "group": [],
+                    "metricColumn": "none",
+                    "rawQuery": false,
+                    "rawSql": "SELECT\n  time AS \"time\",\n  l1_voltage_1\nFROM data\nORDER BY time",
+                    "refId": "A",
+                    "select": [
+                        [
+                            {
+                                "params": [
+                                    "l1_voltage_1"
+                                ],
+                                "type": "column"
+                            }
+                        ]
+                    ],
+                    "table": "data",
+                    "timeColumn": "time",
+                    "timeColumnType": "timestamp",
+                    "where": []
+                }
+            ],
+            "title": "Spannungsverteilung",
+            "type": "histogram"
+        },
+        {
+            "datasource": {
+                "type": "mysql",
+                "uid": "aGmTgnkgk"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "thresholds"
+                    },
+                    "custom": {
+                        "fillOpacity": 58,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineWidth": 1
+                    },
                     "decimals": 3,
                     "mappings": [],
                     "thresholds": {
@@ -2198,7 +2621,7 @@
                 "h": 8,
                 "w": 12,
                 "x": 12,
-                "y": 32
+                "y": 42
             },
             "id": 10,
             "options": {
@@ -2251,13 +2674,13 @@
         "list": []
     },
     "time": {
-        "from": "now-6h",
+        "from": "now-12h",
         "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Electrical",
     "uid": "kMChx8zgk",
-    "version": 31,
+    "version": 44,
     "weekStart": ""
 }
